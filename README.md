@@ -92,7 +92,7 @@ Full rules: [`docs/decision_rules.md`](docs/decision_rules.md).
 | False gaps | 9 of 49 skill items |
 | Apply / don't-apply agreement with the label | 7 of 9 |
 | Eligibility agreement | 8 of 9 |
-| Cost / latency per posting | $0.0167 / 18.0 s |
+| Cost / latency per posting | $0.0167 / 14.0 s |
 
 The labeled postings, their answer keys and the resume they were scored against stay in a private repo, because they contain a real resume and a real job search. `evals/` here holds the rubric, the label template, the [M7 findings](evals/m7_findings.md), and a fictional stand-in resume that the unit tests use.
 
