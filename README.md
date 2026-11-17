@@ -101,9 +101,25 @@ False matches are tracked separately from false gaps because they're worse: they
 ## Demo
 
 - **Walkthrough video:** _link to be added_ (recorded by `npm run demo`; see [`docs/demo/README.md`](docs/demo/README.md)).
-- **Screenshots:** [`docs/demo/screenshots/`](docs/demo/screenshots/), covering login, paste a posting, the fit card, the full card, history, gaps and resume.
+- **Screenshots:** [`docs/demo/screenshots/`](docs/demo/screenshots/), covering login, paste a posting, the fit card, the full card, history, gaps and resume, plus the home and loading screens.
 
 The demo replays a saved fixture: one real Haiku run ($0.012) on a fictional resume and a synthetic posting. Re-running it never calls the model or the real API.
+
+## Design and UI
+
+<p>
+  <img src="docs/demo/screenshots/09-loading.png" width="200" alt="Loading screen: a dusk mountain landscape with a pixel-art climber at the peak, the FitCheck name, and a loading bar">
+  <img src="docs/demo/screenshots/01-login.png" width="200" alt="Login screen: the same landscape with a single access-token field">
+  <img src="docs/demo/screenshots/08-home.png" width="200" alt="Home screen: Today's matches, with the five-tab bar: Matches, Check, History, Gaps, Resume">
+</p>
+
+- **Mobile-first, installable PWA.** It runs standalone from the home screen, with a five-tab bar: Matches (home), Check, History, Gaps, Resume.
+- **Original artwork.** The dusk landscape and pixel climber ("reach your peak") come from my own mockup, embedded as SVG.
+- **Self-hosted type.** Newsreader for headings and Figtree for text (both SIL OFL), so the app never calls a font CDN.
+- **Design tokens in CSS variables.** Dark mode swaps the tokens through `prefers-color-scheme`, and animations respect `prefers-reduced-motion`.
+- **Costs shown before you pay.** Every action that calls the model shows its estimated cost on the button.
+
+<sub>The home screen shows its empty state: the demo fixture has no daily matches run.</sub>
 
 ## Run it locally
 

@@ -9,7 +9,7 @@ Everything here is fictional or synthetic. Nothing comes from a real applicant o
 | `fixtures/demo_posting.txt` | A synthetic internship posting for a made-up company. |
 | `fixtures/api.json` | Every API response the demo screens read, recorded from one real Claude Haiku run ($0.012, 2 calls). |
 | `record_fixtures.py` | Re-records `api.json`. The only step that spends money. |
-| `screenshots/` | PNGs from the Playwright walkthrough. |
+| `screenshots/` | PNGs from the Playwright walkthrough: 01-07 are the product flow, 08 is the home screen, 09 is the loading screen. |
 | `video/walkthrough.webm` | The walkthrough as a browser recording. |
 
 ## Regenerate screenshots and the video ($0)
