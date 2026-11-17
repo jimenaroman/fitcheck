@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+.env
+contact.private.yaml
+.DS_Store
+.fitcheck/
+postings/
+resume.yaml
+profile.yaml
+evals/postings/
+
+# The labeled eval set and its reports hold real postings and a real resume: keep them out of this repo.
+evals/labels/
+evals/reports/
+evals/postings/

@@ -1,0 +1,1060 @@
+{
+  "GET /auth/check": {
+    "type": "json",
+    "body": {
+      "ok": true
+    }
+  },
+  "PUT /resume": {
+    "type": "json",
+    "body": {
+      "version": "demo_resume_v1",
+      "items": 15,
+      "sha256": "3312e040bcf641a229b2d3eaaadbebabe71617080726696a66235279ab19f499"
+    }
+  },
+  "PUT /profile": {
+    "type": "json",
+    "body": {
+      "expected_graduation": "2028-05"
+    }
+  },
+  "GET /checks/quota": {
+    "type": "json",
+    "body": {
+      "used": 0,
+      "limit": 5,
+      "left": 5
+    }
+  },
+  "POST /checks/similar": {
+    "type": "json",
+    "body": {
+      "check": null
+    }
+  },
+  "POST /checks": {
+    "type": "json",
+    "body": {
+      "id": 1,
+      "created_at": "2026-11-17T21:24:25.180944Z",
+      "decision": "apply",
+      "eligibility": "eligible",
+      "first_line": "Software Engineering Intern, Summer 2027",
+      "card": "APPLY\n60% proven, 80% incl. weak (3 of 5 required)\n\nRequired:\n  ✓ r3 \"Experience programming in Python or Java\"\n      python: have via exp-lab-b1\n      java: have via exp-tutor-b1\n  ~ r4 \"Experience with SQL and relational databases\"\n      sql: have via exp-lab-b2\n      relational databases: weak · Coursework only → Add a project that uses it\n  ✓ r5 \"Familiarity with REST APIs\"\n      rest apis: have via proj-rooms-b1\n  ✓ r6 \"Experience writing unit tests\"\n      unit testing: have via proj-rooms-b2\n  ✗ r7 \"Experience with cloud platforms such as AWS or GCP\"\n      cloud platforms: gap · Not on your resume → Learn it, or tap \"I've done this\"\n\nPreferred (never changes the decision):\n  ~ r8 \"Experience with Docker or Kubernetes\"\n      docker: weak · Listed, not shown → Add a bullet where you used it\n      kubernetes: gap · Not on your resume → Learn it, or tap \"I've done this\"\n  ✗ r9 \"Familiarity with React\"\n      react: gap · Not on your resume → Learn it, or tap \"I've done this\"\n\nDetails:\n  · Interest in logistics and optimization (not scored)\n  · Pursuing a Bachelor's degree in Computer Science or a related field, graduating between December 2027 and June 2028 [degree: eligible]\n  · graduating between December 2027 and June 2028 [graduation: eligible]\n  · Must be authorized to work in the United States. [work_authorization: eligible]",
+      "result": {
+        "decision": "apply",
+        "decision_reason": null,
+        "flags": [],
+        "required_total": 5,
+        "required_have": 3,
+        "required_weak": 1,
+        "proven_pct": 60.0,
+        "incl_weak_pct": 80.0,
+        "eligibility": "eligible",
+        "eligibility_checks": [
+          {
+            "requirement_id": "r1",
+            "eligibility_type": "degree",
+            "status": "eligible",
+            "reason": null
+          },
+          {
+            "requirement_id": "r2",
+            "eligibility_type": "graduation",
+            "status": "eligible",
+            "reason": null
+          },
+          {
+            "requirement_id": "r11",
+            "eligibility_type": "work_authorization",
+            "status": "eligible",
+            "reason": null
+          }
+        ],
+        "requirements": [
+          {
+            "requirement_id": "r3",
+            "status": "have",
+            "skills": [
+              {
+                "requirement_id": "r3",
+                "skill": "python",
+                "status": "have",
+                "reason_code": null,
+                "relation": "exact",
+                "evidence_id": "exp-lab-b1",
+                "quote": "Wrote Python scripts with pandas to clean 2 years of bus arrival records"
+              },
+              {
+                "requirement_id": "r3",
+                "skill": "java",
+                "status": "have",
+                "reason_code": null,
+                "relation": "taught",
+                "evidence_id": "exp-tutor-b1",
+                "quote": "Tutored 20+ students a term in Java, helping them debug assignments"
+              }
+            ]
+          },
+          {
+            "requirement_id": "r4",
+            "status": "weak",
+            "skills": [
+              {
+                "requirement_id": "r4",
+                "skill": "sql",
+                "status": "have",
+                "reason_code": null,
+                "relation": "exact",
+                "evidence_id": "exp-lab-b2",
+                "quote": "Built SQL queries in PostgreSQL to join ridership and schedule tables"
+              },
+              {
+                "requirement_id": "r4",
+                "skill": "relational databases",
+                "status": "weak",
+                "reason_code": "coursework_only",
+                "relation": "coursework",
+                "evidence_id": "course-db",
+                "quote": "Course: Database Systems"
+              }
+            ]
+          },
+          {
+            "requirement_id": "r5",
+            "status": "have",
+            "skills": [
+              {
+                "requirement_id": "r5",
+                "skill": "rest apis",
+                "status": "have",
+                "reason_code": null,
+                "relation": "exact",
+                "evidence_id": "proj-rooms-b1",
+                "quote": "Built a Flask web app with a REST API that shows open campus study rooms"
+              }
+            ]
+          },
+          {
+            "requirement_id": "r6",
+            "status": "have",
+            "skills": [
+              {
+                "requirement_id": "r6",
+                "skill": "unit testing",
+                "status": "have",
+                "reason_code": null,
+                "relation": "exact",
+                "evidence_id": "proj-rooms-b2",
+                "quote": "Wrote pytest unit tests for the booking logic and ran them on every push with GitHub Actions"
+              }
+            ]
+          },
+          {
+            "requirement_id": "r7",
+            "status": "gap",
+            "skills": [
+              {
+                "requirement_id": "r7",
+                "skill": "cloud platforms",
+                "status": "gap",
+                "reason_code": "not_on_resume",
+                "relation": "none",
+                "evidence_id": null,
+                "quote": null
+              }
+            ]
+          },
+          {
+            "requirement_id": "r8",
+            "status": "weak",
+            "skills": [
+              {
+                "requirement_id": "r8",
+                "skill": "docker",
+                "status": "weak",
+                "reason_code": "listed_not_shown",
+                "relation": "exact",
+                "evidence_id": "skill-docker",
+                "quote": "Docker"
+              },
+              {
+                "requirement_id": "r8",
+                "skill": "kubernetes",
+                "status": "gap",
+                "reason_code": "not_on_resume",
+                "relation": "none",
+                "evidence_id": null,
+                "quote": null
+              }
+            ]
+          },
+          {
+            "requirement_id": "r9",
+            "status": "gap",
+            "skills": [
+              {
+                "requirement_id": "r9",
+                "skill": "react",
+                "status": "gap",
+                "reason_code": "not_on_resume",
+                "relation": "none",
+                "evidence_id": null,
+                "quote": null
+              }
+            ]
+          },
+          {
+            "requirement_id": "r10",
+            "status": "not_scored",
+            "skills": []
+          }
+        ]
+      },
+      "requirements": [
+        {
+          "id": "r1",
+          "requirement": {
+            "text": "Pursuing a Bachelor's degree in Computer Science or a related field, graduating between December 2027 and June 2028",
+            "section": "required",
+            "kind": "eligibility",
+            "skills": [],
+            "operator": null,
+            "type": null,
+            "category": null,
+            "examples": [],
+            "min_years": null,
+            "level": null,
+            "eligibility_type": "degree",
+            "locations": [],
+            "grad_earliest": null,
+            "grad_latest": null
+          }
+        },
+        {
+          "id": "r2",
+          "requirement": {
+            "text": "graduating between December 2027 and June 2028",
+            "section": "required",
+            "kind": "eligibility",
+            "skills": [],
+            "operator": null,
+            "type": null,
+            "category": null,
+            "examples": [],
+            "min_years": null,
+            "level": null,
+            "eligibility_type": "graduation",
+            "locations": [],
+            "grad_earliest": "2027-12",
+            "grad_latest": "2028-06"
+          }
+        },
+        {
+          "id": "r3",
+          "requirement": {
+            "text": "Experience programming in Python or Java",
+            "section": "required",
+            "kind": "skill",
+            "skills": [
+              "python",
+              "java"
+            ],
+            "operator": "or",
+            "type": "named_tool",
+            "category": "programming languages",
+            "examples": [],
+            "min_years": null,
+            "level": null,
+            "eligibility_type": null,
+            "locations": [],
+            "grad_earliest": null,
+            "grad_latest": null
+          }
+        },
+        {
+          "id": "r4",
+          "requirement": {
+            "text": "Experience with SQL and relational databases",
+            "section": "required",
+            "kind": "skill",
+            "skills": [
+              "sql",
+              "relational databases"
+            ],
+            "operator": "and",
+            "type": "named_tool",
+            "category": "databases",
+            "examples": [],
+            "min_years": null,
+            "level": null,
+            "eligibility_type": null,
+            "locations": [],
+            "grad_earliest": null,
+            "grad_latest": null
+          }
+        },
+        {
+          "id": "r5",
+          "requirement": {
+            "text": "Familiarity with REST APIs",
+            "section": "required",
+            "kind": "skill",
+            "skills": [
+              "rest apis"
+            ],
+            "operator": null,
+            "type": "knowledge",
+            "category": null,
+            "examples": [],
+            "min_years": null,
+            "level": null,
+            "eligibility_type": null,
+            "locations": [],
+            "grad_earliest": null,
+            "grad_latest": null
+          }
+        },
+        {
+          "id": "r6",
+          "requirement": {
+            "text": "Experience writing unit tests",
+            "section": "required",
+            "kind": "skill",
+            "skills": [
+              "unit testing"
+            ],
+            "operator": null,
+            "type": "hands_on",
+            "category": null,
+            "examples": [],
+            "min_years": null,
+            "level": null,
+            "eligibility_type": null,
+            "locations": [],
+            "grad_earliest": null,
+            "grad_latest": null
+          }
+        },
+        {
+          "id": "r7",
+          "requirement": {
+            "text": "Experience with cloud platforms such as AWS or GCP",
+            "section": "required",
+            "kind": "skill",
+            "skills": [
+              "cloud platforms"
+            ],
+            "operator": null,
+            "type": "category",
+            "category": "cloud platforms",
+            "examples": [
+              "aws",
+              "gcp"
+            ],
+            "min_years": null,
+            "level": null,
+            "eligibility_type": null,
+            "locations": [],
+            "grad_earliest": null,
+            "grad_latest": null
+          }
+        },
+        {
+          "id": "r8",
+          "requirement": {
+            "text": "Experience with Docker or Kubernetes",
+            "section": "preferred",
+            "kind": "skill",
+            "skills": [
+              "docker",
+              "kubernetes"
+            ],
+            "operator": "or",
+            "type": "named_tool",
+            "category": "containerization",
+            "examples": [],
+            "min_years": null,
+            "level": null,
+            "eligibility_type": null,
+            "locations": [],
+            "grad_earliest": null,
+            "grad_latest": null
+          }
+        },
+        {
+          "id": "r9",
+          "requirement": {
+            "text": "Familiarity with React",
+            "section": "preferred",
+            "kind": "skill",
+            "skills": [
+              "react"
+            ],
+            "operator": null,
+            "type": "named_tool",
+            "category": "frontend frameworks",
+            "examples": [],
+            "min_years": null,
+            "level": null,
+            "eligibility_type": null,
+            "locations": [],
+            "grad_earliest": null,
+            "grad_latest": null
+          }
+        },
+        {
+          "id": "r10",
+          "requirement": {
+            "text": "Interest in logistics and optimization",
+            "section": "preferred",
+            "kind": "soft",
+            "skills": [],
+            "operator": null,
+            "type": null,
+            "category": null,
+            "examples": [],
+            "min_years": null,
+            "level": null,
+            "eligibility_type": null,
+            "locations": [],
+            "grad_earliest": null,
+            "grad_latest": null
+          }
+        },
+        {
+          "id": "r11",
+          "requirement": {
+            "text": "Must be authorized to work in the United States.",
+            "section": "required",
+            "kind": "eligibility",
+            "skills": [],
+            "operator": null,
+            "type": null,
+            "category": null,
+            "examples": [],
+            "min_years": null,
+            "level": null,
+            "eligibility_type": "work_authorization",
+            "locations": [],
+            "grad_earliest": null,
+            "grad_latest": null
+          }
+        }
+      ],
+      "cost_usd": 0.012289,
+      "calls": 2,
+      "company": null,
+      "locations": [],
+      "url": null,
+      "applied_at": null
+    }
+  },
+  "GET /checks": {
+    "type": "json",
+    "body": [
+      {
+        "id": 1,
+        "created_at": "2026-11-17T21:24:25.180944Z",
+        "decision": "apply",
+        "eligibility": "eligible",
+        "first_line": "Software Engineering Intern, Summer 2027",
+        "company": null,
+        "locations": [],
+        "url": null,
+        "applied_at": null
+      }
+    ]
+  },
+  "GET /checks/1": {
+    "type": "json",
+    "body": {
+      "id": 1,
+      "created_at": "2026-11-17T21:24:25.180944Z",
+      "decision": "apply",
+      "eligibility": "eligible",
+      "first_line": "Software Engineering Intern, Summer 2027",
+      "card": "APPLY\n60% proven, 80% incl. weak (3 of 5 required)\n\nRequired:\n  ✓ r3 \"Experience programming in Python or Java\"\n      python: have via exp-lab-b1\n      java: have via exp-tutor-b1\n  ~ r4 \"Experience with SQL and relational databases\"\n      sql: have via exp-lab-b2\n      relational databases: weak · Coursework only → Add a project that uses it\n  ✓ r5 \"Familiarity with REST APIs\"\n      rest apis: have via proj-rooms-b1\n  ✓ r6 \"Experience writing unit tests\"\n      unit testing: have via proj-rooms-b2\n  ✗ r7 \"Experience with cloud platforms such as AWS or GCP\"\n      cloud platforms: gap · Not on your resume → Learn it, or tap \"I've done this\"\n\nPreferred (never changes the decision):\n  ~ r8 \"Experience with Docker or Kubernetes\"\n      docker: weak · Listed, not shown → Add a bullet where you used it\n      kubernetes: gap · Not on your resume → Learn it, or tap \"I've done this\"\n  ✗ r9 \"Familiarity with React\"\n      react: gap · Not on your resume → Learn it, or tap \"I've done this\"\n\nDetails:\n  · Interest in logistics and optimization (not scored)\n  · Pursuing a Bachelor's degree in Computer Science or a related field, graduating between December 2027 and June 2028 [degree: eligible]\n  · graduating between December 2027 and June 2028 [graduation: eligible]\n  · Must be authorized to work in the United States. [work_authorization: eligible]",
+      "result": {
+        "decision": "apply",
+        "decision_reason": null,
+        "flags": [],
+        "required_total": 5,
+        "required_have": 3,
+        "required_weak": 1,
+        "proven_pct": 60.0,
+        "incl_weak_pct": 80.0,
+        "eligibility": "eligible",
+        "eligibility_checks": [
+          {
+            "requirement_id": "r1",
+            "eligibility_type": "degree",
+            "status": "eligible",
+            "reason": null
+          },
+          {
+            "requirement_id": "r2",
+            "eligibility_type": "graduation",
+            "status": "eligible",
+            "reason": null
+          },
+          {
+            "requirement_id": "r11",
+            "eligibility_type": "work_authorization",
+            "status": "eligible",
+            "reason": null
+          }
+        ],
+        "requirements": [
+          {
+            "requirement_id": "r3",
+            "status": "have",
+            "skills": [
+              {
+                "requirement_id": "r3",
+                "skill": "python",
+                "status": "have",
+                "reason_code": null,
+                "relation": "exact",
+                "evidence_id": "exp-lab-b1",
+                "quote": "Wrote Python scripts with pandas to clean 2 years of bus arrival records"
+              },
+              {
+                "requirement_id": "r3",
+                "skill": "java",
+                "status": "have",
+                "reason_code": null,
+                "relation": "taught",
+                "evidence_id": "exp-tutor-b1",
+                "quote": "Tutored 20+ students a term in Java, helping them debug assignments"
+              }
+            ]
+          },
+          {
+            "requirement_id": "r4",
+            "status": "weak",
+            "skills": [
+              {
+                "requirement_id": "r4",
+                "skill": "sql",
+                "status": "have",
+                "reason_code": null,
+                "relation": "exact",
+                "evidence_id": "exp-lab-b2",
+                "quote": "Built SQL queries in PostgreSQL to join ridership and schedule tables"
+              },
+              {
+                "requirement_id": "r4",
+                "skill": "relational databases",
+                "status": "weak",
+                "reason_code": "coursework_only",
+                "relation": "coursework",
+                "evidence_id": "course-db",
+                "quote": "Course: Database Systems"
+              }
+            ]
+          },
+          {
+            "requirement_id": "r5",
+            "status": "have",
+            "skills": [
+              {
+                "requirement_id": "r5",
+                "skill": "rest apis",
+                "status": "have",
+                "reason_code": null,
+                "relation": "exact",
+                "evidence_id": "proj-rooms-b1",
+                "quote": "Built a Flask web app with a REST API that shows open campus study rooms"
+              }
+            ]
+          },
+          {
+            "requirement_id": "r6",
+            "status": "have",
+            "skills": [
+              {
+                "requirement_id": "r6",
+                "skill": "unit testing",
+                "status": "have",
+                "reason_code": null,
+                "relation": "exact",
+                "evidence_id": "proj-rooms-b2",
+                "quote": "Wrote pytest unit tests for the booking logic and ran them on every push with GitHub Actions"
+              }
+            ]
+          },
+          {
+            "requirement_id": "r7",
+            "status": "gap",
+            "skills": [
+              {
+                "requirement_id": "r7",
+                "skill": "cloud platforms",
+                "status": "gap",
+                "reason_code": "not_on_resume",
+                "relation": "none",
+                "evidence_id": null,
+                "quote": null
+              }
+            ]
+          },
+          {
+            "requirement_id": "r8",
+            "status": "weak",
+            "skills": [
+              {
+                "requirement_id": "r8",
+                "skill": "docker",
+                "status": "weak",
+                "reason_code": "listed_not_shown",
+                "relation": "exact",
+                "evidence_id": "skill-docker",
+                "quote": "Docker"
+              },
+              {
+                "requirement_id": "r8",
+                "skill": "kubernetes",
+                "status": "gap",
+                "reason_code": "not_on_resume",
+                "relation": "none",
+                "evidence_id": null,
+                "quote": null
+              }
+            ]
+          },
+          {
+            "requirement_id": "r9",
+            "status": "gap",
+            "skills": [
+              {
+                "requirement_id": "r9",
+                "skill": "react",
+                "status": "gap",
+                "reason_code": "not_on_resume",
+                "relation": "none",
+                "evidence_id": null,
+                "quote": null
+              }
+            ]
+          },
+          {
+            "requirement_id": "r10",
+            "status": "not_scored",
+            "skills": []
+          }
+        ]
+      },
+      "requirements": [
+        {
+          "id": "r1",
+          "requirement": {
+            "text": "Pursuing a Bachelor's degree in Computer Science or a related field, graduating between December 2027 and June 2028",
+            "section": "required",
+            "kind": "eligibility",
+            "skills": [],
+            "operator": null,
+            "type": null,
+            "category": null,
+            "examples": [],
+            "min_years": null,
+            "level": null,
+            "eligibility_type": "degree",
+            "locations": [],
+            "grad_earliest": null,
+            "grad_latest": null
+          }
+        },
+        {
+          "id": "r2",
+          "requirement": {
+            "text": "graduating between December 2027 and June 2028",
+            "section": "required",
+            "kind": "eligibility",
+            "skills": [],
+            "operator": null,
+            "type": null,
+            "category": null,
+            "examples": [],
+            "min_years": null,
+            "level": null,
+            "eligibility_type": "graduation",
+            "locations": [],
+            "grad_earliest": "2027-12",
+            "grad_latest": "2028-06"
+          }
+        },
+        {
+          "id": "r3",
+          "requirement": {
+            "text": "Experience programming in Python or Java",
+            "section": "required",
+            "kind": "skill",
+            "skills": [
+              "python",
+              "java"
+            ],
+            "operator": "or",
+            "type": "named_tool",
+            "category": "programming languages",
+            "examples": [],
+            "min_years": null,
+            "level": null,
+            "eligibility_type": null,
+            "locations": [],
+            "grad_earliest": null,
+            "grad_latest": null
+          }
+        },
+        {
+          "id": "r4",
+          "requirement": {
+            "text": "Experience with SQL and relational databases",
+            "section": "required",
+            "kind": "skill",
+            "skills": [
+              "sql",
+              "relational databases"
+            ],
+            "operator": "and",
+            "type": "named_tool",
+            "category": "databases",
+            "examples": [],
+            "min_years": null,
+            "level": null,
+            "eligibility_type": null,
+            "locations": [],
+            "grad_earliest": null,
+            "grad_latest": null
+          }
+        },
+        {
+          "id": "r5",
+          "requirement": {
+            "text": "Familiarity with REST APIs",
+            "section": "required",
+            "kind": "skill",
+            "skills": [
+              "rest apis"
+            ],
+            "operator": null,
+            "type": "knowledge",
+            "category": null,
+            "examples": [],
+            "min_years": null,
+            "level": null,
+            "eligibility_type": null,
+            "locations": [],
+            "grad_earliest": null,
+            "grad_latest": null
+          }
+        },
+        {
+          "id": "r6",
+          "requirement": {
+            "text": "Experience writing unit tests",
+            "section": "required",
+            "kind": "skill",
+            "skills": [
+              "unit testing"
+            ],
+            "operator": null,
+            "type": "hands_on",
+            "category": null,
+            "examples": [],
+            "min_years": null,
+            "level": null,
+            "eligibility_type": null,
+            "locations": [],
+            "grad_earliest": null,
+            "grad_latest": null
+          }
+        },
+        {
+          "id": "r7",
+          "requirement": {
+            "text": "Experience with cloud platforms such as AWS or GCP",
+            "section": "required",
+            "kind": "skill",
+            "skills": [
+              "cloud platforms"
+            ],
+            "operator": null,
+            "type": "category",
+            "category": "cloud platforms",
+            "examples": [
+              "aws",
+              "gcp"
+            ],
+            "min_years": null,
+            "level": null,
+            "eligibility_type": null,
+            "locations": [],
+            "grad_earliest": null,
+            "grad_latest": null
+          }
+        },
+        {
+          "id": "r8",
+          "requirement": {
+            "text": "Experience with Docker or Kubernetes",
+            "section": "preferred",
+            "kind": "skill",
+            "skills": [
+              "docker",
+              "kubernetes"
+            ],
+            "operator": "or",
+            "type": "named_tool",
+            "category": "containerization",
+            "examples": [],
+            "min_years": null,
+            "level": null,
+            "eligibility_type": null,
+            "locations": [],
+            "grad_earliest": null,
+            "grad_latest": null
+          }
+        },
+        {
+          "id": "r9",
+          "requirement": {
+            "text": "Familiarity with React",
+            "section": "preferred",
+            "kind": "skill",
+            "skills": [
+              "react"
+            ],
+            "operator": null,
+            "type": "named_tool",
+            "category": "frontend frameworks",
+            "examples": [],
+            "min_years": null,
+            "level": null,
+            "eligibility_type": null,
+            "locations": [],
+            "grad_earliest": null,
+            "grad_latest": null
+          }
+        },
+        {
+          "id": "r10",
+          "requirement": {
+            "text": "Interest in logistics and optimization",
+            "section": "preferred",
+            "kind": "soft",
+            "skills": [],
+            "operator": null,
+            "type": null,
+            "category": null,
+            "examples": [],
+            "min_years": null,
+            "level": null,
+            "eligibility_type": null,
+            "locations": [],
+            "grad_earliest": null,
+            "grad_latest": null
+          }
+        },
+        {
+          "id": "r11",
+          "requirement": {
+            "text": "Must be authorized to work in the United States.",
+            "section": "required",
+            "kind": "eligibility",
+            "skills": [],
+            "operator": null,
+            "type": null,
+            "category": null,
+            "examples": [],
+            "min_years": null,
+            "level": null,
+            "eligibility_type": "work_authorization",
+            "locations": [],
+            "grad_earliest": null,
+            "grad_latest": null
+          }
+        }
+      ],
+      "cost_usd": 0.012289,
+      "calls": 2,
+      "company": null,
+      "locations": [],
+      "url": null,
+      "applied_at": null
+    }
+  },
+  "GET /leaderboard": {
+    "type": "json",
+    "body": {
+      "postings_counted": 1,
+      "skipped_review_manually": 0,
+      "skipped_filtered_out": 0,
+      "skipped_duplicates": 0,
+      "decisions": {
+        "apply": 1
+      },
+      "stale_check_ids": [],
+      "strengths": [
+        {
+          "skill": "java",
+          "required": 1,
+          "preferred": 0,
+          "as_alternative": 0,
+          "reasons": {},
+          "highlighted": false,
+          "marked_at": null
+        },
+        {
+          "skill": "python",
+          "required": 1,
+          "preferred": 0,
+          "as_alternative": 0,
+          "reasons": {},
+          "highlighted": false,
+          "marked_at": null
+        },
+        {
+          "skill": "rest apis",
+          "required": 1,
+          "preferred": 0,
+          "as_alternative": 0,
+          "reasons": {},
+          "highlighted": false,
+          "marked_at": null
+        },
+        {
+          "skill": "sql",
+          "required": 1,
+          "preferred": 0,
+          "as_alternative": 0,
+          "reasons": {},
+          "highlighted": false,
+          "marked_at": null
+        },
+        {
+          "skill": "unit testing",
+          "required": 1,
+          "preferred": 0,
+          "as_alternative": 0,
+          "reasons": {},
+          "highlighted": false,
+          "marked_at": null
+        }
+      ],
+      "unproven": [
+        {
+          "skill": "relational databases",
+          "required": 1,
+          "preferred": 0,
+          "as_alternative": 0,
+          "reasons": {
+            "coursework_only": 1
+          },
+          "highlighted": false,
+          "marked_at": null
+        },
+        {
+          "skill": "docker",
+          "required": 0,
+          "preferred": 1,
+          "as_alternative": 0,
+          "reasons": {
+            "listed_not_shown": 1
+          },
+          "highlighted": false,
+          "marked_at": null
+        }
+      ],
+      "marked_done": [],
+      "gaps": [
+        {
+          "skill": "cloud platforms",
+          "required": 1,
+          "preferred": 0,
+          "as_alternative": 0,
+          "reasons": {},
+          "highlighted": false,
+          "marked_at": null
+        },
+        {
+          "skill": "kubernetes",
+          "required": 0,
+          "preferred": 1,
+          "as_alternative": 0,
+          "reasons": {},
+          "highlighted": true,
+          "marked_at": null
+        },
+        {
+          "skill": "react",
+          "required": 0,
+          "preferred": 1,
+          "as_alternative": 0,
+          "reasons": {},
+          "highlighted": true,
+          "marked_at": null
+        }
+      ]
+    }
+  },
+  "GET /matches": {
+    "type": "json",
+    "body": {
+      "day": "2026-11-17",
+      "today": "2026-11-17",
+      "status": "not_run",
+      "message": "",
+      "counted": 0,
+      "tries": 0,
+      "per_day": 10,
+      "autorun": false,
+      "categories": [
+        "Software"
+      ],
+      "estimated_cost_usd": 0.16,
+      "applied_this_week": 0,
+      "matches": [],
+      "to_open": []
+    }
+  },
+  "GET /settings": {
+    "type": "json",
+    "body": {
+      "categories": [
+        "Software"
+      ],
+      "all_categories": [
+        "Software",
+        "AI/ML/Data",
+        "Quant",
+        "Product",
+        "Hardware"
+      ]
+    }
+  },
+  "GET /resume": {
+    "type": "text",
+    "body": "# FICTIONAL resume for the public demo. The person, school projects, and employers are made up.\nversion: demo_resume_v1\n\nname: Riley Example\n\neducation:\n  - id: edu-state\n    school: Lakeview State University\n    location: Chicago, IL\n    degrees: [\"B.S. in Computer Science\"]\n    expected_graduation: 2028-05\n    honors:\n      - {id: honor-deans-list, text: \"Dean's List, 3 semesters\"}\n    coursework:\n      - {id: course-ds, name: \"Data Structures and Algorithms\"}\n      - {id: course-db, name: \"Database Systems\"}\n      - {id: course-stats, name: \"Probability and Statistics\"}\n\nexperience:\n  - id: exp-lab\n    org: Lakeview State University\n    title: Undergraduate Research Assistant, Transit Data Lab\n    start: 2025-09\n    end: present\n    bullets:\n      - id: exp-lab-b1\n        text: \"Wrote Python scripts with pandas to clean 2 years of bus arrival records and flag late routes for the lab's weekly report\"\n      - id: exp-lab-b2\n        text: \"Built SQL queries in PostgreSQL to join ridership and schedule tables, cutting the lab's manual spreadsheet work\"\n  - id: exp-tutor\n    org: Lakeview State University\n    title: Peer Tutor, Intro Programming\n    start: 2025-01\n    end: present\n    bullets:\n      - id: exp-tutor-b1\n        text: \"Tutored 20+ students a term in Java, helping them debug assignments and explain their code\"\n\nprojects:\n  - id: proj-rooms\n    name: Study Room Finder\n    stack: [Python, Flask, SQLite, HTML]\n    bullets:\n      - id: proj-rooms-b1\n        text: \"Built a Flask web app with a REST API that shows open campus study rooms, backed by a SQLite database\"\n      - id: proj-rooms-b2\n        text: \"Wrote pytest unit tests for the booking logic and ran them on every push with GitHub Actions\"\n\nskills:\n  languages:\n    - {name: Python, evidenced_by: [exp-lab-b1, proj-rooms-b1]}\n    - {name: Java, evidenced_by: [exp-tutor-b1]}\n    - {name: SQL, evidenced_by: [exp-lab-b2]}\n    - {name: JavaScript, evidenced_by: []}\n  tools:\n    - {name: Git, evidenced_by: []}\n    - {name: Docker, evidenced_by: []}\n"
+  },
+  "GET /profile": {
+    "type": "text",
+    "body": "# FICTIONAL profile for the public demo (same format as profile.example.yaml).\nexpected_graduation: \"2028-05\"\n\nwork_authorization:\n  us_authorized: true\n  needs_sponsorship: false\n\nlocation_filter:\n  enabled: false\n  metros: [chicago]\n  remote_ok: true\n"
+  },
+  "GET /recheck": {
+    "type": "json",
+    "body": {
+      "stale_check_ids": [],
+      "estimated_cost_usd": 0.0
+    }
+  },
+  "GET /checks/quota (after)": {
+    "type": "json",
+    "body": {
+      "used": 1,
+      "limit": 5,
+      "left": 4
+    }
+  }
+}

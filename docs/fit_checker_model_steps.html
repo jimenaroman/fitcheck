@@ -1,0 +1,207 @@
+<style>
+  :root{
+    --ink:#17202c; --muted:#5a6573; --paper:#f3f5f7; --card:#ffffff; --rule:#d5dbe2;
+    --have:#1f7a4d; --have-bg:#e3f3ea;
+    --weak:#8a5a00; --weak-bg:#fff1d6;
+    --gap:#800000; --gap-bg:#f9e6e6;
+    --soft:#5f6b78; --soft-bg:#e9edf1;
+    --rev:#1f5fad; --rev-bg:#e3edf9;
+    --decide:#b07a00;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --ink:#e8edf2; --muted:#a3adb9; --paper:#141a22; --card:#1c2430; --rule:#2e3a48;
+      --have:#5cc792; --have-bg:#16342a; --weak:#f0b64a; --weak-bg:#3a2d12;
+      --gap:#e27a7a; --gap-bg:#3a1c1f; --soft:#a3adb9; --soft-bg:#28313d;
+      --rev:#7fb0ee; --rev-bg:#1b2d45; --decide:#f0b64a; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;line-height:1.45}
+  main{max-width:980px;margin:0 auto;padding:40px 20px 72px}
+  h1{font-size:clamp(28px,5vw,42px);line-height:1.1;margin:0 0 10px;letter-spacing:-0.01em}
+  .lede{color:var(--muted);max-width:64ch;margin:0 0 22px;font-size:17px}
+  h2{font-size:22px;margin:52px 0 6px}
+  .sub{color:var(--muted);margin:0 0 18px;max-width:66ch;font-size:15px}
+  .pill{display:inline-block;font-size:13px;font-weight:700;padding:2px 10px;border-radius:20px;white-space:nowrap}
+  .have{color:var(--have);background:var(--have-bg)}
+  .weak{color:var(--weak);background:var(--weak-bg)}
+  .gap{color:var(--gap);background:var(--gap-bg)}
+  .soft{color:var(--soft);background:var(--soft-bg)}
+  .rev{color:var(--rev);background:var(--rev-bg)}
+  .legend{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;font-size:14px;color:var(--muted)}
+  .legend span{display:inline-flex;gap:7px;align-items:center}
+  .decide{display:inline-block;font-size:12.5px;font-weight:700;color:var(--decide);border:1.5px solid var(--decide);border-radius:5px;padding:0 6px;margin-left:6px;vertical-align:1px}
+
+  /* Question ladder */
+  .ladder{list-style:none;margin:0;padding:0;background:var(--card);border:1px solid var(--rule);border-radius:10px}
+  .ladder li{display:grid;grid-template-columns:52px 1fr minmax(170px,230px);gap:6px 16px;padding:16px 18px;position:relative;border-bottom:1px solid var(--rule)}
+  .ladder li:last-child{border-bottom:0}
+  .id{font-weight:700;font-size:14px;width:40px;height:40px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;background:var(--card);position:relative;z-index:1}
+  .ladder li:not(:last-child) .id::after{content:"";position:absolute;left:50%;top:38px;width:2px;height:40px;background:var(--rule);transform:translateX(-50%);z-index:-1}
+  .q{font-size:16px;font-weight:700;margin:0}
+  .note{font-size:14.5px;color:var(--muted);margin:4px 0 0}
+  .then{align-self:start}
+  .then .pill{margin-bottom:5px}
+  .then p{margin:3px 0 0;font-size:13.5px;color:var(--muted)}
+  .ladder li.mod .id{border-style:dashed}
+  .otherwise{font-size:13px;color:var(--muted);margin:8px 0 0 4px}
+
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--rule);border-radius:10px;overflow:hidden;font-size:14.5px}
+  th,td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--rule);vertical-align:top}
+  th{font-size:13px;color:var(--muted);font-weight:700;background:var(--paper)}
+  tr:last-child td{border-bottom:0}
+  td.r{white-space:nowrap;font-weight:700;font-size:13px;color:var(--muted)}
+
+  .boards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .board{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:16px 18px}
+  .board h3{font-size:16px;margin:0 0 2px}
+  .board .desc{font-size:13.5px;color:var(--muted);margin:0 0 12px}
+  .row{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center;margin:0 0 10px;font-size:14.5px}
+  .bar{grid-column:1/-1;height:6px;border-radius:3px;background:var(--soft-bg);overflow:hidden}
+  .bar i{display:block;height:100%}
+  .b-gap i{background:var(--gap)} .b-weak i{background:var(--weak)} .b-have i{background:var(--have)}
+  .illus{font-size:13px;color:var(--muted);margin:10px 0 0}
+
+  .open{background:var(--card);border:1.5px solid var(--decide);border-radius:10px;padding:6px 20px}
+  .open li{margin:12px 0;font-size:15px}
+  .open b{font-size:14px}
+
+  @media (max-width:720px){
+    .ladder li{grid-template-columns:44px 1fr}
+    .then{grid-column:2}
+    .ladder li:not(:last-child) .id::after{height:100px}
+    .boards{grid-template-columns:1fr}
+    table{font-size:13.5px} th,td{padding:9px 10px}
+  }
+</style>
+<style>
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .panel{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:16px 18px}
+  .panel h3{font-size:16px;margin:0 0 8px}
+  .panel ul{margin:0;padding-left:18px;font-size:14.5px}
+  .panel li{margin:5px 0}
+  .panel.skip{color:var(--muted)}
+  .panel.openq{border:1.5px solid var(--decide)}
+  .matrix td,.matrix th{text-align:center}
+  .matrix td:first-child,.matrix th:first-child{text-align:left}
+  .matrix .src{display:block;font-size:12px;color:var(--muted);margin-top:3px}
+  .matrix td.prop{outline:1.5px dashed var(--decide);outline-offset:-5px}
+  pre{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:16px 18px;overflow:auto;font-size:13.5px;line-height:1.5;margin:0}
+  .steps{counter-reset:s;list-style:none;padding:0;margin:0}
+  .steps li{counter-increment:s;background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:14px 18px 14px 60px;margin:0 0 10px;position:relative;font-size:15px}
+  .steps li::before{content:counter(s);position:absolute;left:18px;top:13px;width:28px;height:28px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;font-weight:700;font-size:14px}
+  .steps li b{display:block;margin-bottom:2px}
+  .steps li span{color:var(--muted);font-size:14.5px}
+  .who{font-size:12.5px;font-weight:700;padding:1px 8px;border-radius:12px;margin-left:6px;vertical-align:1px}
+  .who.m{color:var(--rev);background:var(--rev-bg)} .who.c{color:var(--have);background:var(--have-bg)}
+  @media (max-width:720px){ .grid2{grid-template-columns:1fr} }
+</style>
+
+<main>
+  <h1>What the model reads, and what it decides</h1>
+  <p class="lede">The model makes two narrow judgments: what a posting asks for, and how a resume line relates to it. Code turns those judgments into Have, Weak, or Gap using a table you control. Changing a rule means editing one cell, not rewriting a prompt.</p>
+
+  <h2>Part 1: what gets pulled from a posting</h2>
+  <p class="sub">Extraction reads the qualifications and eligibility lines, and ignores the rest.</p>
+  <div class="grid2">
+    <div class="panel"><h3>Read</h3><ul>
+      <li>Minimum, basic, or required qualifications</li>
+      <li>Preferred qualifications, "nice to have," "bonus"</li>
+      <li>Eligibility lines anywhere: graduation dates, degree, work authorization, location</li></ul></div>
+    <div class="panel skip"><h3>Skip</h3><ul>
+      <li>About the company, mission statements</li>
+      <li>Benefits, salary, perks</li>
+      <li>Equal opportunity statements, application instructions</li></ul></div>
+  </div>
+  <div class="panel openq" style="margin-top:16px"><h3>Responsibilities <span class="decide">You decide</span></h3>
+    <p class="note" style="margin:0;font-size:14.5px;color:var(--muted)">"You will build REST APIs and deploy services on AWS." These aren't listed as requirements, but they describe the actual job. Options: skip them, count them on the leaderboard only, or score them like preferred items.</p></div>
+
+  <h2>Fields for each requirement</h2>
+  <p class="sub">Example: "Experience with visualization tools such as Tableau or D3."</p>
+  <table>
+    <tr><th>Field</th><th>Value</th><th>What it's for</th></tr>
+    <tr><td><b>text</b></td><td>The line, word for word</td><td>Code checks it appears in the posting, which catches invented requirements</td></tr>
+    <tr><td><b>section</b></td><td>preferred</td><td>Required or preferred (P6, P8)</td></tr>
+    <tr><td><b>kind</b></td><td>skill</td><td>Skill, soft, or eligibility (R1, R2)</td></tr>
+    <tr><td><b>skills</b></td><td>["tableau", "d3"]</td><td>Normalized names for the leaderboard; code merges aliases</td></tr>
+    <tr><td><b>operator</b></td><td>or</td><td>And or or (R3)</td></tr>
+    <tr><td><b>type</b></td><td>named_tool</td><td>Sets how strict matching is (table in Part 2)</td></tr>
+    <tr><td><b>category</b></td><td>data visualization</td><td>Lets the matcher recognize a same-category tool like Plotly</td></tr>
+    <tr><td><b>min_years</b></td><td>null</td><td>Years check (R9)</td></tr>
+    <tr><td><b>level</b></td><td>null</td><td>Recorded only (R10)</td></tr>
+  </table>
+
+  <h2>The four requirement types</h2>
+  <p class="sub">The type tells the matcher how specific your evidence must be. This is your principle from calibration: the more specific the posting, the more specific the evidence.</p>
+  <table>
+    <tr><th>Type</th><th>Posting wording</th><th>Examples</th></tr>
+    <tr><td><b>category</b></td><td>Names a field, not a tool</td><td>"Web development," "data analysis," "machine learning"</td></tr>
+    <tr><td><b>named_tool</b></td><td>Names specific tools or languages</td><td>"React," "Tableau or D3," "Java"</td></tr>
+    <tr><td><b>knowledge</b></td><td>Asks what you understand</td><td>"Knowledge of statistics," "understanding of data structures"</td></tr>
+    <tr><td><b>hands_on</b></td><td>Asks what you've built or run</td><td>"Experience building data pipelines," "have shipped a web app"</td></tr>
+  </table>
+
+  <h2>Splitting rules</h2>
+  <table>
+    <tr><th>Posting line</th><th>Becomes</th></tr>
+    <tr><td>"BS in CS with coursework in algorithms"</td><td>Two requirements: an eligibility item (degree) and a knowledge item (algorithms)</td></tr>
+    <tr><td>"Python, SQL, and Git"</td><td>One requirement, skills ["python", "sql", "git"], operator and</td></tr>
+    <tr><td>"Python or Java"</td><td>One requirement, skills ["python", "java"], operator or</td></tr>
+    <tr><td>"Strong communication and experience with React"</td><td>Two requirements: a soft item and a named_tool item</td></tr>
+  </table>
+
+  <h2>Part 2: how the model decides whether a skill exists</h2>
+  <ol class="steps">
+    <li><b>The model receives one posting's requirements and your resume items <span class="who m">Model</span></b><span>Each resume item has its ID, text, and whether it's a bullet, a course, or a skills-list entry. Contact info is never included. Posting text is wrapped and labeled as data.</span></li>
+    <li><b>For each skill, it picks the best evidence and quotes it <span class="who m">Model</span></b><span>One resume item and an exact quote, or "none."</span></li>
+    <li><b>It labels how the evidence relates to the requirement <span class="who m">Model</span></b><span>One of the seven relations below. When unsure between two, it picks the weaker one, because false matches are worse than false gaps.</span></li>
+    <li><b>Code verifies the quote <span class="who c">Code</span></b><span>The quote must appear word for word in the cited item (R4, R5).</span></li>
+    <li><b>Code looks up the status in the table <span class="who c">Code</span></b><span>Requirement type × relation gives Have, Weak, or Gap.</span></li>
+    <li><b>Code applies the last checks <span class="who c">Code</span></b><span>Skills-list-only evidence becomes Weak (R7). A years requirement without a stated duration caps Have at Weak (R9). And/or combines the skills (R3). Every result gets a reason code, like listed_not_shown, so the app can explain it.</span></li>
+  </ol>
+
+  <h2>The seven relations</h2>
+  <table>
+    <tr><th>Relation</th><th>Meaning</th><th>Example</th></tr>
+    <tr><td><b>exact</b></td><td>The resume shows the skill itself, or a clear instance of the category asked for</td><td>pandas for "pandas"; Streamlit app for "web development"</td></tr>
+    <tr><td><b>same_category</b></td><td>A different tool that does the same job</td><td>Plotly for "Tableau or D3"</td></tr>
+    <tr><td><b>smaller_scale</b></td><td>Related work, smaller than what's asked</td><td>CSV cleaning for "data pipelines"</td></tr>
+    <tr><td><b>taught</b></td><td>You taught the skill</td><td>tutoring for "Java"</td></tr>
+    <tr><td><b>coursework</b></td><td>A course covers it</td><td>Linear Algebra for "knowledge of linear algebra"</td></tr>
+    <tr><td><b>different_technique</b></td><td>Sounds related, but it's a different method</td><td>Rule-based detector for "machine learning"</td></tr>
+    <tr><td><b>none</b></td><td>Nothing on the resume supports it</td><td>Anything for "Kubernetes"</td></tr>
+  </table>
+
+  <h2>The status table</h2>
+  <p class="sub">Plain Python, owned by you. Cells with a rule ID come from your calibration answers. Cells with a dashed outline are my proposals. Check those.</p>
+  <table class="matrix">
+    <tr><th>Relation</th><th>category</th><th>named_tool</th><th>knowledge</th><th>hands_on</th></tr>
+    <tr><td><b>exact</b></td><td><span class="pill have">Have</span><span class="src">M1</span></td><td><span class="pill have">Have</span></td><td><span class="pill have">Have</span></td><td><span class="pill have">Have</span></td></tr>
+    <tr><td><b>same_category</b></td><td><span class="pill have">Have</span><span class="src">M1</span></td><td><span class="pill weak">Weak</span><span class="src">M3</span></td><td class="prop"><span class="pill have">Have</span></td><td class="prop"><span class="pill weak">Weak</span></td></tr>
+    <tr><td><b>smaller_scale</b></td><td class="prop"><span class="pill weak">Weak</span></td><td class="prop"><span class="pill weak">Weak</span></td><td class="prop"><span class="pill weak">Weak</span></td><td><span class="pill weak">Weak</span><span class="src">M6</span></td></tr>
+    <tr><td><b>taught</b></td><td class="prop"><span class="pill have">Have</span></td><td><span class="pill have">Have</span><span class="src">M2</span></td><td class="prop"><span class="pill have">Have</span></td><td class="prop"><span class="pill have">Have</span></td></tr>
+    <tr><td><b>coursework</b></td><td class="prop"><span class="pill weak">Weak</span></td><td class="prop"><span class="pill weak">Weak</span></td><td><span class="pill have">Have</span><span class="src">M4</span></td><td><span class="pill weak">Weak</span><span class="src">R6</span></td></tr>
+    <tr><td><b>different_technique</b></td><td><span class="pill gap">Gap</span><span class="src">M5</span></td><td><span class="pill gap">Gap</span></td><td><span class="pill gap">Gap</span></td><td><span class="pill gap">Gap</span></td></tr>
+    <tr><td><b>none</b></td><td><span class="pill gap">Gap</span></td><td><span class="pill gap">Gap</span></td><td><span class="pill gap">Gap</span></td><td><span class="pill gap">Gap</span></td></tr>
+  </table>
+
+  <h2>What the model returns for one skill</h2>
+<pre>{
+  "requirement_id": "req-4",
+  "skill": "tableau",
+  "evidence_id": "proj-finance-b2",
+  "quote": "Drew Plotly monthly budget charts",
+  "relation": "same_category",
+  "reason": "Plotly is a visualization library, but not Tableau"
+}</pre>
+  <p class="otherwise">Code checks the quote, looks up named_tool × same_category, and gets Weak. The model never outputs a status, so it can't talk its way to Have.</p>
+
+  <h2>Why it's split this way</h2>
+  <table>
+    <tr><th>Benefit</th><th>How</th></tr>
+    <tr><td>You own the policy</td><td>Every status comes from a table cell you approved, not from the model's opinion</td></tr>
+    <tr><td>Rules change cheaply</td><td>Disagree with a cell? Change one line of Python. No prompt edits, no retesting the model</td></tr>
+    <tr><td>Evals get sharper</td><td>Your labels can record the relation too, so the eval shows whether the model misread the resume or the table gave the wrong status</td></tr>
+    <tr><td>Interview story</td><td>"The model labels facts, the code applies policy" is a clear, defensible design</td></tr>
+  </table>
+</main>

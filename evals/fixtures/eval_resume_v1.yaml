@@ -1,0 +1,103 @@
+# FICTIONAL stand-in for the private eval resume, so the unit tests run in public.
+# Same file name, structure, and IDs the tests cite; the person and every bullet are made up.
+version: eval_resume_v1
+frozen_on: 2026-09-27
+
+# Contact info lives in contact.private.yaml (gitignored, never sent to a model).
+contact:
+  source: contact.private.yaml
+  tag: locked
+
+name: Riley Example
+
+education:
+  - id: edu-state
+    tag: locked
+    school: Lakeview State University
+    location: Springfield, IL
+    degrees: ["B.S. in Computer Science"]
+    expected_graduation: 2028-05
+    gpa: "3.8/4.00"
+    honors:
+      - {id: honor-deans-scholar, text: "Dean's Scholar, College of Engineering", tag: keep}
+      - {id: honor-scholarship, text: "Merit Scholarship recipient", tag: keep}
+    coursework:
+      - {id: course-calc3, name: "Calculus III", tag: optional}
+      - {id: course-cs2, name: "Intro to Computer Science II", tag: optional}
+      - {id: course-linalg, name: "Linear Algebra", tag: optional}
+      - {id: course-stats, name: "Statistical Models and Methods", tag: optional}
+
+experience:
+  - id: exp-library
+    tag: optional
+    org: Lakeview State University
+    title: "Library Desk Assistant"
+    location: Springfield, IL
+    start: 2025-09
+    end: present
+    bullets:
+      - id: exp-library-b1
+        text: "Answer 40+ patron questions per shift about holds, printing, and study room reservations"
+      - id: exp-library-b2
+        text: "Log laptop loans in a shared Google Sheets and Excel tracker for follow-up on late returns"
+  - id: exp-tutoring
+    tag: keep
+    org: Northside Code Club
+    title: Volunteer Tutor
+    location: Springfield, IL
+    start: 2023-01
+    end: 2025-06
+    bullets:
+      - id: exp-tutoring-b1
+        text: "Taught Java fundamentals to students ages 11-14 in weekly small-group and 1-on-1 sessions"
+      - id: exp-tutoring-b2
+        text: "Made practice problem sets for students to work through between sessions"
+  - id: exp-cafe
+    tag: optional
+    org: Corner Cafe
+    title: Barista
+    location: Springfield, IL
+    start: 2024-02
+    end: 2025-09
+    bullets:
+      - id: exp-cafe-b1
+        text: "Served the morning rush line at a busy cafe, keeping custom orders right"
+      - id: exp-cafe-b2
+        text: "Showed new baristas the register and the opening checklist"
+
+projects:
+  - id: proj-finance-tool
+    tag: keep
+    name: Budget Tracker
+    stack: [Python, Streamlit, pandas, Plotly]
+    deployed: false
+    link: null
+    bullets:
+      - id: proj-finance-b1
+        text: "Built a Streamlit budget app that reads bank CSV exports and tags each purchase with pandas"
+      - id: proj-finance-b2
+        text: "Drew Plotly monthly budget charts per category, filterable by date range"
+      - id: proj-finance-b3
+        text: "Wrote a repeat-charge detector that flags overlapping subscriptions in the imported data"
+
+# Skills grouped per the format. `evidenced_by` lists bullets that prove the skill.
+# An empty list means the skill appears ONLY in this section.
+skills:
+  tag: keep
+  frontend:
+    - {name: HTML, evidenced_by: []}
+    - {name: JavaScript, evidenced_by: []}
+    - {name: Streamlit, evidenced_by: [proj-finance-b1]}
+  backend:
+    - {name: Python, evidenced_by: [proj-finance-b1, proj-finance-b3]}
+    - {name: Java, evidenced_by: [exp-tutoring-b1]}
+    - {name: SQL, evidenced_by: []}
+  data:
+    - {name: pandas, evidenced_by: [proj-finance-b1]}
+    - {name: "Data cleaning", evidenced_by: [proj-finance-b1]}
+    - {name: Plotly, evidenced_by: [proj-finance-b2]}
+    - {name: "Data visualization", evidenced_by: [proj-finance-b2]}
+  tools:
+    - {name: Git, evidenced_by: []}
+    - {name: "Microsoft Excel", evidenced_by: [exp-library-b2]}
+    - {name: "Google Sheets", evidenced_by: [exp-library-b2]}

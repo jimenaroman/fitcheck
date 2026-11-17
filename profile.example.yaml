@@ -1,0 +1,12 @@
+# Copy to profile.yaml (gitignored) and fill in your own values. Rules: docs/decision_rules.md section 4.
+expected_graduation: "2029-05"   # YYYY-MM (E1)
+early_graduation: "2028-12"      # optional: earliest possible graduation (E1)
+
+work_authorization:               # E5
+  us_authorized: true             # can work in the US without a visa change
+  needs_sponsorship: false        # will need visa sponsorship now or later
+
+location_filter:                  # E6: off by default, which means locations are ignored completely
+  enabled: false
+  metros: [chicago, nyc, sf, dallas_plano]
+  remote_ok: true

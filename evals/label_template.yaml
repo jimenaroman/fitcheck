@@ -1,0 +1,25 @@
+# Copy to evals/labels/NNN.yaml and fill in by hand. Rules for each field: evals/rubric.md.
+# Never edit a label once it's written (CLAUDE.md). To change your mind, write a new posting/label pair.
+posting: NNN.txt                    # the file in evals/postings/ (gitignored)
+source_url: https://example.com/job # where the posting came from
+saved_on: 2026-11-05                # the day you saved the text
+posting_sha256: "PASTE: output of  shasum -a 256 evals/postings/NNN.txt"
+resume: eval_resume_v1              # always the frozen resume
+is_job_posting: true
+has_section_split: true             # does the posting separate required from preferred?
+
+requirements:                       # every item, in any order (rubric: "What to list")
+  - quote: "a short phrase copied exactly from the posting"
+    kind: skill                     # skill, soft, or eligibility
+    section: required               # required or preferred (not for eligibility)
+    status: have                    # have, weak, or gap (skill items only)
+
+  - quote: "Strong communication skills"
+    kind: soft
+    section: required
+
+  - quote: "US work authorization required"
+    kind: eligibility
+
+decision: apply                     # apply, dont_apply, or review_manually
+eligibility: eligible               # eligible, unclear, next_year, or filtered_out

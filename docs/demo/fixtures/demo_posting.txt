@@ -1,0 +1,24 @@
+Software Engineering Intern, Summer 2027
+Example Freight Co. · Chicago, IL (Hybrid)
+
+About the role
+Join our routing team for 12 weeks and ship code that helps trucks find faster routes.
+
+What you'll do
+- Build and test backend services for our dispatch platform
+- Work with data scientists to turn route data into dashboards
+
+Required qualifications
+- Pursuing a Bachelor's degree in Computer Science or a related field, graduating between December 2027 and June 2028
+- Experience programming in Python or Java
+- Experience with SQL and relational databases
+- Familiarity with REST APIs
+- Experience writing unit tests
+- Experience with cloud platforms such as AWS or GCP
+
+Preferred qualifications
+- Experience with Docker or Kubernetes
+- Familiarity with React
+- Interest in logistics and optimization
+
+Must be authorized to work in the United States.

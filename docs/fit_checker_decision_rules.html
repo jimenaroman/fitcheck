@@ -1,0 +1,322 @@
+<style>
+  :root{
+    --ink:#17202c; --muted:#5a6573; --paper:#f3f5f7; --card:#ffffff; --rule:#d5dbe2;
+    --have:#1f7a4d; --have-bg:#e3f3ea;
+    --weak:#8a5a00; --weak-bg:#fff1d6;
+    --gap:#800000; --gap-bg:#f9e6e6;
+    --soft:#5f6b78; --soft-bg:#e9edf1;
+    --rev:#1f5fad; --rev-bg:#e3edf9;
+    --decide:#b07a00;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --ink:#e8edf2; --muted:#a3adb9; --paper:#141a22; --card:#1c2430; --rule:#2e3a48;
+      --have:#5cc792; --have-bg:#16342a; --weak:#f0b64a; --weak-bg:#3a2d12;
+      --gap:#e27a7a; --gap-bg:#3a1c1f; --soft:#a3adb9; --soft-bg:#28313d;
+      --rev:#7fb0ee; --rev-bg:#1b2d45; --decide:#f0b64a; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;line-height:1.45}
+  main{max-width:980px;margin:0 auto;padding:40px 20px 72px}
+  h1{font-size:clamp(28px,5vw,42px);line-height:1.1;margin:0 0 10px;letter-spacing:-0.01em}
+  .lede{color:var(--muted);max-width:64ch;margin:0 0 22px;font-size:17px}
+  h2{font-size:22px;margin:52px 0 6px}
+  .sub{color:var(--muted);margin:0 0 18px;max-width:66ch;font-size:15px}
+  .pill{display:inline-block;font-size:13px;font-weight:700;padding:2px 10px;border-radius:20px;white-space:nowrap}
+  .have{color:var(--have);background:var(--have-bg)}
+  .weak{color:var(--weak);background:var(--weak-bg)}
+  .gap{color:var(--gap);background:var(--gap-bg)}
+  .soft{color:var(--soft);background:var(--soft-bg)}
+  .rev{color:var(--rev);background:var(--rev-bg)}
+  .legend{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;font-size:14px;color:var(--muted)}
+  .legend span{display:inline-flex;gap:7px;align-items:center}
+  .decide{display:inline-block;font-size:12.5px;font-weight:700;color:var(--decide);border:1.5px solid var(--decide);border-radius:5px;padding:0 6px;margin-left:6px;vertical-align:1px}
+
+  /* Question ladder */
+  .ladder{list-style:none;margin:0;padding:0;background:var(--card);border:1px solid var(--rule);border-radius:10px}
+  .ladder li{display:grid;grid-template-columns:52px 1fr minmax(170px,230px);gap:6px 16px;padding:16px 18px;position:relative;border-bottom:1px solid var(--rule)}
+  .ladder li:last-child{border-bottom:0}
+  .id{font-weight:700;font-size:14px;width:40px;height:40px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;background:var(--card);position:relative;z-index:1}
+  .ladder li:not(:last-child) .id::after{content:"";position:absolute;left:50%;top:38px;width:2px;height:40px;background:var(--rule);transform:translateX(-50%);z-index:-1}
+  .q{font-size:16px;font-weight:700;margin:0}
+  .note{font-size:14.5px;color:var(--muted);margin:4px 0 0}
+  .then{align-self:start}
+  .then .pill{margin-bottom:5px}
+  .then p{margin:3px 0 0;font-size:13.5px;color:var(--muted)}
+  .ladder li.mod .id{border-style:dashed}
+  .otherwise{font-size:13px;color:var(--muted);margin:8px 0 0 4px}
+
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--rule);border-radius:10px;overflow:hidden;font-size:14.5px}
+  th,td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--rule);vertical-align:top}
+  th{font-size:13px;color:var(--muted);font-weight:700;background:var(--paper)}
+  tr:last-child td{border-bottom:0}
+  td.r{white-space:nowrap;font-weight:700;font-size:13px;color:var(--muted)}
+
+  .boards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .board{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:16px 18px}
+  .board h3{font-size:16px;margin:0 0 2px}
+  .board .desc{font-size:13.5px;color:var(--muted);margin:0 0 12px}
+  .row{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center;margin:0 0 10px;font-size:14.5px}
+  .bar{grid-column:1/-1;height:6px;border-radius:3px;background:var(--soft-bg);overflow:hidden}
+  .bar i{display:block;height:100%}
+  .b-gap i{background:var(--gap)} .b-weak i{background:var(--weak)} .b-have i{background:var(--have)}
+  .illus{font-size:13px;color:var(--muted);margin:10px 0 0}
+
+  .open{background:var(--card);border:1.5px solid var(--decide);border-radius:10px;padding:6px 20px}
+  .open li{margin:12px 0;font-size:15px}
+  .open b{font-size:14px}
+
+  @media (max-width:720px){
+    .ladder li{grid-template-columns:44px 1fr}
+    .then{grid-column:2}
+    .ladder li:not(:last-child) .id::after{height:100px}
+    .boards{grid-template-columns:1fr}
+    table{font-size:13.5px} th,td{padding:9px 10px}
+  }
+</style>
+
+<main>
+  <h1>How a match becomes a result</h1>
+  <p class="lede">Every rule has an ID. Reply with the ID and what you'd change, like "R7: count listed skills as a gap." Rules marked <span class="decide">You decide</span> are my proposals, not settled.</p>
+
+  <div class="legend">
+    <span><i class="pill have">Have</i> proven by a bullet</span>
+    <span><i class="pill weak">Weak</i> listed or coursework only</span>
+    <span><i class="pill gap">Gap</i> no evidence</span>
+    <span><i class="pill soft">Not scored</i></span>
+    <span><i class="pill rev">Review manually</i></span>
+  </div>
+
+  <h2>Step 1: one requirement gets a status</h2>
+  <p class="sub">Runs on every required and preferred item. Read top to bottom. The first question that answers yes decides the outcome; otherwise, move to the next.</p>
+  <ol class="ladder">
+    <li><div class="id">R1</div>
+      <div><p class="q">Is it a soft skill?</p><p class="note">"Strong communication," "passion for technology," "team player."</p></div>
+      <div class="then"><span class="pill soft">Not scored</span><p>Shown in details. Never counted toward the score or the leaderboard.</p></div></li>
+    <li><div class="id">R2</div>
+      <div><p class="q">Is it an eligibility item?</p><p class="note">Graduation window, enrollment, GPA minimum, work authorization, location.</p></div>
+      <div class="then"><span class="pill soft">To step 2</span><p>Checked for eligibility, not skills.</p></div></li>
+    <li><div class="id">R3</div>
+      <div><p class="q">Does one requirement name more than one skill?</p>
+        <p class="note">Each named skill first gets its own status from R4 to R8. Then two separate things happen.</p>
+        <p class="note"><b>For your score</b>, the requirement counts once. With "or" (Java or C++), it's covered if you have at least one. With "and" (Python and Kubernetes), it's covered only if you have all of them.</p>
+        <p class="note"><b>For the leaderboard</b>, every named skill counts on its own, whether the posting used "and" or "or." Skills you have go to Strengths in demand. Skills you lack go to Most-requested gaps, even when the "or" was already covered by another skill.</p></div>
+      <div class="then"><span class="pill soft">Split into skills</span><p>Scored as one requirement. Tallied as separate skills.</p></div></li>
+    <li><div class="id">R4</div>
+      <div><p class="q">Did the model cite a bullet, and does the quote appear word for word in it?</p><p class="note">verify.py checks that the quote exists. Whether the bullet actually proves the requirement is the model's judgment, guided by rules M1 to M6 below.</p></div>
+      <div class="then"><span class="pill have">Have</span><p>Evidence: the bullet ID and quote.</p></div></li>
+    <li><div class="id">R5</div>
+      <div><p class="q">Did the model cite something that isn't there?</p><p class="note">Quote not in the bullet, or an ID that doesn't exist.</p></div>
+      <div class="then"><span class="pill gap">Gap</span><p>Logged as a caught false match. Feeds P3 and your eval.</p></div></li>
+    <li><div class="id">R6</div>
+      <div><p class="q">Is the only evidence a course?</p><p class="note">When the posting asks for knowledge or understanding ("knowledge of statistics," "understanding of data structures"), a matching course counts as Have (M4). When it asks for hands-on experience ("experience building"), coursework alone is Weak.</p></div>
+      <div class="then"><span class="pill have">Have</span> <span class="pill weak">Weak</span><p>Label: coursework.</p></div></li>
+    <li><div class="id">R7</div>
+      <div><p class="q">Is it only in your skills list?</p><p class="note">evidenced_by is empty, like SQL or TypeScript today. It's on your resume but nothing shows it, which is a different fix from a skill you've never listed.</p></div>
+      <div class="then"><span class="pill weak">Weak</span><p>Label: listed, not shown.</p></div></li>
+    <li><div class="id">R8</div>
+      <div><p class="q">None of the above</p><p class="note">Nothing on your resume supports it.</p></div>
+      <div class="then"><span class="pill gap">Gap</span></div></li>
+    <li><div class="id">R9</div>
+      <div><p class="q">Does it ask for years of experience?</p><p class="note">"2+ years of Java." If the skill would be Have, it stays Have only when the cited quote itself states a duration that meets the requirement, like "2+ years building Java applications." Otherwise it drops to Weak. Code checks the quote for the duration. Years are never calculated from your resume dates.</p></div>
+      <div class="then"><span class="pill have">Have</span> <span class="pill weak">Weak</span><p>Label: years not shown.</p></div></li>
+    <li class="mod"><div class="id">R10</div>
+      <div><p class="q">Does it use a level word?</p><p class="note">"Familiarity," "proficiency," and "strong" are ignored. "Expert," "deep," and "advanced" are recorded. Level words never filter a posting out; only explicit degree requirements do (E3).</p></div>
+      <div class="then"><span class="pill soft">Recorded, not shown</span><p>Decide how to display it after 15 labeled postings.</p></div></li>
+  </ol>
+  <p class="otherwise">R10 is a modifier (dashed): it never changes a status, and for now it's saved with each requirement but not displayed.</p>
+
+  <h2>How the model judges evidence</h2>
+  <p class="sub">Your calibration answers, turned into rules for the matching prompt. The principle behind all six: the more specific the posting, the more specific your evidence has to be. The model only judges what's written on your resume, never what you know.</p>
+  <table>
+    <tr><th>ID</th><th>Rule</th><th>Your calibration case</th><th>Status</th></tr>
+    <tr><td class="r">M1</td><td>A broad category is satisfied by any concrete example of real work in it.</td><td>"Web development" and the Streamlit app</td><td><span class="pill have">Have</span></td></tr>
+    <tr><td class="r">M2</td><td>Teaching a skill counts as having it.</td><td>"Strong foundation in Java" and tutoring</td><td><span class="pill have">Have</span></td></tr>
+    <tr><td class="r">M3</td><td>When the posting names specific tools, a different tool in the same category is only Weak.</td><td>"Tableau or D3" and Plotly</td><td><span class="pill weak">Weak</span></td></tr>
+    <tr><td class="r">M4</td><td>A matching course satisfies a knowledge or understanding requirement.</td><td>"Knowledge of linear algebra and statistics" and your coursework</td><td><span class="pill have">Have</span></td></tr>
+    <tr><td class="r">M5</td><td>A technique never stands in for a different one. If the resume doesn't show it, it's a gap, even if you have the skill.</td><td>"Machine learning" and the rule-based expense detector</td><td><span class="pill gap">Gap</span></td></tr>
+    <tr><td class="r">M6</td><td>Similar work at a smaller scale than the requirement describes is Weak.</td><td>"Data pipelines" and CSV cleaning in the finance tool</td><td><span class="pill weak">Weak</span></td></tr>
+  </table>
+
+  <h2>Step 2: eligibility items get checked</h2>
+  <p class="sub">The model only reads the posting's facts, like a date window or a GPA number. Python compares them with your resume and profile.yaml.</p>
+  <ol class="ladder">
+    <li><div class="id">E1</div>
+      <div><p class="q">Graduation window</p><p class="note">Your expected date (May 2029) falls inside the window: eligible. Only your early date (Dec 2028) falls inside: unclear. Window ends before yours, like Dec 2026 – Jun 2027: Next year. Window starts after yours, like a program only for 2030 grads: filtered out. No window listed: eligible.</p></div>
+      <div class="then"><span class="pill have">Eligible</span> <span class="pill weak">Unclear</span> <span class="pill rev">Next year</span> <span class="pill gap">Filtered out</span></div></li>
+    <li><div class="id">E2</div>
+      <div><p class="q">Class-year wording</p><p class="note">Translated using the internship's season. For Summer 2027, "rising junior" and "current sophomore" both mean you.</p></div>
+      <div class="then"><span class="pill have">Eligible</span><p>Otherwise ineligible or unclear, same as E1.</p></div></li>
+    <li><div class="id">E3</div>
+      <div><p class="q">Degree or enrollment</p><p class="note">"Pursuing a BS in CS or related field" or "or equivalent experience" is satisfied by edu-state. Postings only for MS or PhD students are an instant no.</p></div>
+      <div class="then"><span class="pill have">Eligible</span> <span class="pill gap">Filtered out</span></div></li>
+    <li><div class="id">E4</div>
+      <div><p class="q">GPA minimum</p><p class="note">Ignored. GPA minimums don't limit you the way degree requirements do, so they never filter, flag, or block a posting. The line still shows in the details.</p></div>
+      <div class="then"><span class="pill soft">Ignored</span></div></li>
+    <li><div class="id">E5</div>
+      <div><p class="q">Work authorization</p><p class="note">Read from profile.yaml. "No visa sponsorship" passes because you're authorized.</p></div>
+      <div class="then"><span class="pill have">Eligible</span></div></li>
+    <li><div class="id">E6</div>
+      <div><p class="q">Location</p><p class="note"><b>Off by default:</b> location never affects eligibility. <b>When you turn it on</b> in profile.yaml: a posting is eligible if any of its locations is in one of your metros (SF, Chicago, NYC, Dallas–Plano) or it's remote. Otherwise it's filtered out, with the city as the reason. A location code can't recognize is unclear. No location listed: eligible.</p></div>
+      <div class="then"><span class="pill soft">Ignored when off</span> <span class="pill have">Eligible</span> <span class="pill gap">Filtered out</span> <span class="pill weak">Unclear</span></div></li>
+    <li><div class="id">E7</div>
+      <div><p class="q">Combine all checks into one status</p><p class="note">Checked in this order: any filtered-out check filters the posting out. Otherwise, any Next year check saves it to Next year. Otherwise, any unclear check makes it unclear. Otherwise, eligible.</p></div>
+      <div class="then"><span class="pill soft">One overall status</span></div></li>
+  </ol>
+
+  <h2>Step 3: the posting gets a decision</h2>
+  <p class="sub">Uses only required items that are scorable, meaning not soft skills and not eligibility items. Written by you in score.py.</p>
+  <ol class="ladder">
+    <li><div class="id">P1</div>
+      <div><p class="q">Did the model's output fail validation twice?</p></div>
+      <div class="then"><span class="pill rev">Review manually</span><p>Reason: invalid output.</p></div></li>
+    <li><div class="id">P2</div>
+      <div><p class="q">Is the text not a job posting?</p><p class="note">A LinkedIn post, an article, a blank paste.</p></div>
+      <div class="then"><span class="pill rev">Review manually</span><p>Reason: not a posting.</p></div></li>
+    <li><div class="id">P3</div>
+      <div><p class="q">Were more than half the model's citations caught as false (R5)?</p><p class="note">A run that unreliable shouldn't produce a decision.</p></div>
+      <div class="then"><span class="pill rev">Review manually</span><p>Reason: unreliable matching.</p></div></li>
+    <li><div class="id">P4</div>
+      <div><p class="q">Does the posting skip the required/preferred split? <span class="decide">You decide</span></p><p class="note">Proposal: treat every qualification as required, which is the stricter reading. Alternative: send it to review manually.</p></div>
+      <div class="then"><span class="pill soft">All required</span><p>Flag: "posting has no split."</p></div></li>
+    <li><div class="id">P5</div>
+      <div><p class="q">Are there zero scorable required items?</p><p class="note">Only soft skills and eligibility items were listed.</p></div>
+      <div class="then"><span class="pill have">Apply</span><p>Flag: "no skill requirements listed."</p></div></li>
+    <li><div class="id">P6</div>
+      <div><p class="q">Is coverage at least 80%? <span class="decide">You decide</span></p><p class="note">Coverage = (Have + Weak) ÷ scorable required items. A percentage, not a fixed count, so short lists stay strict: 1 of 2 covered is 50%.</p></div>
+      <div class="then"><span class="pill have">Apply</span> <span class="pill gap">Don't apply</span></div></li>
+    <li class="mod"><div class="id">P7</div>
+      <div><p class="q">Does the posting reach 80% only because Weak items count?</p><p class="note">Counting Have items alone would be below 80%.</p></div>
+      <div class="then"><span class="pill have">Apply</span><p>Flag: "relies on unproven skills: SQL."</p></div></li>
+    <li class="mod"><div class="id">P8</div>
+      <div><p class="q">Preferred items</p><p class="note">Never change the decision. Shown in details, and tallied separately.</p></div>
+      <div class="then"><span class="pill soft">Details only</span></div></li>
+  </ol>
+
+  <h2>What you'd see on each posting</h2>
+  <p class="sub">The decision and eligibility are stored separately. The label is computed from both.</p>
+  <table>
+    <tr><th>Decision</th><th>Eligibility</th><th>Label on the card</th></tr>
+    <tr><td><span class="pill have">Apply</span></td><td>Eligible</td><td><b>Apply</b>, plus any flags like "relies on unproven skills"</td></tr>
+    <tr><td><span class="pill have">Apply</span></td><td>Unclear</td><td><b>Apply, check eligibility first</b>, with the reason, like "role is in NYC"</td></tr>
+    <tr><td>Any</td><td>Filtered out</td><td><b>Not in your list.</b> MS or PhD only, a program for later grads, or (with the location filter on) a city outside your list. Kept in a separate Filtered out list with the reason.</td></tr>
+    <tr><td>Any</td><td>Next year</td><td><b>Saved to Next year: wants Dec 2026 – Jun 2027 grads</b>, with your skills result, so you can revisit when the program opens to your class.</td></tr>
+    <tr><td><span class="pill gap">Don't apply</span></td><td>Eligible or unclear</td><td><b>Not yet: 3 required gaps</b>, with an eligibility note if unclear</td></tr>
+    <tr><td><span class="pill rev">Review manually</span></td><td>Any</td><td><b>Review manually</b>, with the reason from P1, P2, or P3</td></tr>
+  </table>
+  <p class="otherwise">Filtered postings aren't deleted. Checking the Filtered out list now and then catches a posting hidden by mistake, which a flag would never hide. Tapping a card opens the details: every required and preferred item with its status, its evidence, its flags, and each eligibility check.</p>
+
+  <h2>What Weak means on screen</h2>
+  <p class="sub">A status is never shown alone. Code stores a reason with every match, and each reason has one label, one explanation, and one fix, written once so every user sees the same words.</p>
+  <table>
+    <tr><th>Reason</th><th>Label</th><th>Explanation shown</th><th>Suggested fix</th></tr>
+    <tr><td class="r">R7</td><td><span class="pill weak">Listed, not shown</span></td><td>Your skills list includes SQL, but no project or job shows you using it.</td><td>Add a bullet where you used it</td></tr>
+    <tr><td class="r">M3</td><td><span class="pill weak">Similar tool</span></td><td>They asked for Tableau or D3. You've used Plotly, which does the same job.</td><td>Mention Plotly, or try their tool</td></tr>
+    <tr><td class="r">M6</td><td><span class="pill weak">Smaller scale</span></td><td>You've cleaned CSV files; they want data pipelines.</td><td>Describe or build something bigger</td></tr>
+    <tr><td class="r">R6</td><td><span class="pill weak">Coursework only</span></td><td>You've studied this, but no project shows you building it.</td><td>Add a project that uses it</td></tr>
+    <tr><td class="r">R9</td><td><span class="pill weak">Years not shown</span></td><td>They ask for 2+ years of Java. Your resume shows Java, but not for how long.</td><td>State the duration in a bullet</td></tr>
+    <tr><td class="r">R8</td><td><span class="pill gap">Not on your resume</span></td><td>Nothing on your resume shows this skill.</td><td>Learn it, or tap "I've done this"</td></tr>
+  </table>
+
+  <h2>Where flags appear</h2>
+  <p class="sub">A flag goes on the card only if it could change what you do. Every card-level flag is shown. Everything else lives in the details, and every flag is saved either way.</p>
+  <table>
+    <tr><th>Flag</th><th>Rule</th><th>Where</th></tr>
+    <tr><td>Relies on unproven skills</td><td class="r">P7</td><td>Card</td></tr>
+    <tr><td>Eligibility unclear, with the reason</td><td class="r">E1, E6</td><td>Card</td></tr>
+    <tr><td>Review manually, with the reason</td><td class="r">P1–P3</td><td>Card</td></tr>
+    <tr><td>Posting has no required/preferred split</td><td class="r">P4</td><td>Details</td></tr>
+    <tr><td>No skill requirements listed</td><td class="r">P5</td><td>Details</td></tr>
+    <tr><td>Level words like "expert"</td><td class="r">R10</td><td>Saved only, for now</td></tr>
+    <tr><td>Model's claim rejected</td><td class="r">R5</td><td>Saved only, for your eval</td></tr>
+  </table>
+
+  <h2>What feeds the skills leaderboard</h2>
+  <p class="sub">Each requirement carries normalized skill names, so "Proficiency in Python" and "Python 3.x" both count as python.</p>
+  <table>
+    <tr><th>ID</th><th>Rule</th></tr>
+    <tr><td class="r">L1</td><td>A skill counts once per posting, no matter how many times the posting mentions it.</td></tr>
+    <tr><td class="r">L2</td><td>A duplicate posting (the same text) counts once.</td></tr>
+    <tr><td class="r">L3</td><td>Postings sent to review manually don't count.</td></tr>
+    <tr><td class="r">L4</td><td>Soft skills and eligibility items don't count.</td></tr>
+    <tr><td class="r">L5</td><td>Next year postings count, because they show what employers want from your field. Filtered-out postings don't count, because MS and PhD roles ask for research skills that would skew your list. <span class="decide">You decide</span></td></tr>
+    <tr><td class="r">L6</td><td>Required and preferred are counted separately. A preferred gap gets highlighted when more than half of postings ask for it.</td></tr>
+    <tr><td class="r">L7</td><td>How often a skill is asked for never changes. Your status for it is recomputed from your current resume, so adding a project moves skills between boards.</td></tr>
+    <tr><td class="r">L8</td><td>Combined requirements are tallied skill by skill (R3). A skill you lack from an "or" you already covered still counts as a gap, marked "as an alternative," so you can tell it apart from a skill that blocked you.</td></tr>
+    <tr><td class="r">L9</td><td>Tapping "I've done this" on a gap moves that skill to Not on your resume yet. It still counts as a Gap in your score, because a reader can't see it either. Once a bullet proves it, the next recheck moves it to Strengths.</td></tr>
+  </table>
+
+  <div class="boards" style="margin-top:18px">
+    <div class="board">
+      <h3>Most-requested gaps</h3><p class="desc">Required skills you don't have</p>
+      <div class="row"><span>aws</span><b>31</b><div class="bar b-gap"><i style="width:78%"></i></div></div>
+      <div class="row"><span>c++ <small style="color:var(--muted)">(8 as an alternative)</small></span><b>22</b><div class="bar b-gap"><i style="width:55%"></i></div></div>
+      <div class="row"><span>rest apis</span><b>19</b><div class="bar b-gap"><i style="width:48%"></i></div></div>
+    </div>
+    <div class="board">
+      <h3>Listed but unproven</h3><p class="desc">On your resume, but no bullet backs it up</p>
+      <div class="row"><span>sql</span><b>27</b><div class="bar b-weak"><i style="width:68%"></i></div></div>
+      <div class="row"><span>typescript</span><b>12</b><div class="bar b-weak"><i style="width:30%"></i></div></div>
+      <div class="row"><span>git</span><b>9</b><div class="bar b-weak"><i style="width:23%"></i></div></div>
+    </div>
+    <div class="board">
+      <h3>Strengths in demand</h3><p class="desc">Skills you've proven that employers keep asking for</p>
+      <div class="row"><span>python</span><b>36</b><div class="bar b-have"><i style="width:90%"></i></div></div>
+      <div class="row"><span>java</span><b>14</b><div class="bar b-have"><i style="width:35%"></i></div></div>
+      <div class="row"><span>pandas</span><b>8</b><div class="bar b-have"><i style="width:20%"></i></div></div>
+    </div>
+    <div class="board">
+      <h3>Not on your resume yet</h3><p class="desc">Gaps you marked "I've done this." Write them down</p>
+      <div class="row"><span>machine learning</span><b>17</b><div class="bar b-gap"><i style="width:43%"></i></div></div>
+      <div class="row"><span>git workflows</span><b>6</b><div class="bar b-gap"><i style="width:15%"></i></div></div>
+    </div>
+  </div>
+  <p class="illus">Illustrative numbers, as if you'd checked 40 postings.</p>
+
+  <h2>Edge cases, with expected results</h2>
+  <p class="sub">Once you approve these, each row becomes a unit test.</p>
+  <table>
+    <tr><th>The posting says</th><th>Result</th><th>Rule</th></tr>
+    <tr><td>"Proficiency in Python"</td><td><span class="pill have">Have</span> via proj-finance-b1</td><td class="r">R4, R10</td></tr>
+    <tr><td>"Experience with SQL"</td><td><span class="pill weak">Weak</span> listed, unproven</td><td class="r">R7</td></tr>
+    <tr><td>"Python or Java"</td><td>Score: <span class="pill have">Have</span><br>Tally: python and java both go to Strengths</td><td class="r">R3</td></tr>
+    <tr><td>"Java or C++"</td><td>Score: <span class="pill have">Have</span>, because you have Java<br>Tally: java goes to Strengths, c++ goes to Gaps as an alternative</td><td class="r">R3, L8</td></tr>
+    <tr><td>"Python and Kubernetes"</td><td>Score: <span class="pill gap">Gap</span>, because both are needed<br>Tally: python goes to Strengths, kubernetes goes to Gaps</td><td class="r">R3</td></tr>
+    <tr><td>"AWS or another cloud platform"</td><td>Score: <span class="pill gap">Gap</span><br>Tally: cloud goes to Gaps</td><td class="r">R3, R8</td></tr>
+    <tr><td>"2+ years of Java"</td><td><span class="pill weak">Weak</span> via exp-tutoring-b1. The bullet shows Java but doesn't state a duration</td><td class="r">R9</td></tr>
+    <tr><td>"2+ years of Java," with a bullet that says "2+ years building Java applications"</td><td><span class="pill have">Have</span></td><td class="r">R9</td></tr>
+    <tr><td>"Solid understanding of data structures"</td><td><span class="pill have">Have</span> via course-cs2</td><td class="r">R6, M4</td></tr>
+    <tr><td>"Experience with web development"</td><td><span class="pill have">Have</span> via proj-finance-b1</td><td class="r">M1</td></tr>
+    <tr><td>"Visualization tools such as Tableau or D3"</td><td><span class="pill weak">Weak</span> via Plotly. Tally: plotly goes to Strengths, tableau and d3 go to Gaps as alternatives</td><td class="r">M3, L8</td></tr>
+    <tr><td>"Experience with machine learning"</td><td><span class="pill gap">Gap</span>. The expense detector is rule-based, not ML</td><td class="r">M5</td></tr>
+    <tr><td>"Experience building data pipelines"</td><td><span class="pill weak">Weak</span> via proj-finance-b1</td><td class="r">M6</td></tr>
+    <tr><td>Model claims "React" with a quote that isn't in proj-finance-b2</td><td><span class="pill gap">Gap</span>, logged as a caught false match</td><td class="r">R5</td></tr>
+    <tr><td>"Excellent communication skills"</td><td><span class="pill soft">Not scored</span></td><td class="r">R1</td></tr>
+    <tr><td>"Graduating Dec 2028 – Aug 2029"</td><td>Eligible</td><td class="r">E1</td></tr>
+    <tr><td>"Graduating Dec 2027 – Jun 2028"</td><td>Unclear, early graduation only</td><td class="r">E1</td></tr>
+    <tr><td>"Minimum GPA 3.7"</td><td>Ignored. Eligibility unaffected</td><td class="r">E4</td></tr>
+    <tr><td>"Open to MS and PhD students only"</td><td>Filtered out</td><td class="r">E3</td></tr>
+    <tr><td>"Graduating Dec 2026 – Jun 2027"</td><td>Saved to Next year</td><td class="r">E1</td></tr>
+    <tr><td>3 required items ask for "3+ years" or "expert" level, no degree requirement</td><td>Years items drop to Weak unless a bullet states the duration. Level words recorded, nothing shown. Not filtered</td><td class="r">R9, R10</td></tr>
+    <tr><td>"Located in Boston," location filter off</td><td>Eligible. Location ignored</td><td class="r">E6</td></tr>
+    <tr><td>"Located in Boston," location filter on</td><td>Filtered out, reason: Boston</td><td class="r">E6</td></tr>
+    <tr><td>"New York, Seattle, or Remote," filter on</td><td>Eligible, because NYC matches</td><td class="r">E6</td></tr>
+    <tr><td>"Plano, TX," filter on</td><td>Eligible, because Plano is in the Dallas–Plano metro</td><td class="r">E6</td></tr>
+    <tr><td>3 required, you have 2</td><td><span class="pill gap">Don't apply</span> at 67%</td><td class="r">P6</td></tr>
+    <tr><td>5 required: 3 Have, 1 Weak, 1 Gap</td><td><span class="pill have">Apply</span> at 80%, flagged "relies on unproven skills"</td><td class="r">P6, P7</td></tr>
+    <tr><td>Qualifications listed with no required/preferred split</td><td>All treated as required, flagged</td><td class="r">P4</td></tr>
+    <tr><td>Only soft skills and a graduation window</td><td><span class="pill have">Apply</span> if eligible, flagged</td><td class="r">P5</td></tr>
+    <tr><td>A pasted LinkedIn post, not a job</td><td><span class="pill rev">Review manually</span></td><td class="r">P2</td></tr>
+    <tr><td>The same posting pasted twice</td><td>Second copy skipped by the leaderboard</td><td class="r">L2</td></tr>
+  </table>
+
+  <h2>Your open decisions</h2>
+  <ul class="open">
+            <li><b>P4.</b> When a posting has no required/preferred split, is everything required, or does it go to review manually?</li>
+    <li><b>P6.</b> Is the rule 80% coverage, and does Weak count toward it?</li>
+    <li><b>L5.</b> Next year postings count toward the leaderboard, and filtered-out postings don't. Agree?</li>
+        <li><b>R10.</b> Revisit how to display level words like "expert" after 15 labeled postings.</li>
+    <li><b>E6.</b> Does SF mean only San Francisco, or the whole Bay Area? Should remote roles count as a match?</li>
+    <li><b>Responsibilities.</b> Skip them, count them on the leaderboard only, or score them like preferred items?</li>
+  </ul>
+</main>

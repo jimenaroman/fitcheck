@@ -1,0 +1,57 @@
+# FICTIONAL resume for the public demo. The person, school projects, and employers are made up.
+version: demo_resume_v1
+
+name: Riley Example
+
+education:
+  - id: edu-state
+    school: Lakeview State University
+    location: Chicago, IL
+    degrees: ["B.S. in Computer Science"]
+    expected_graduation: 2028-05
+    honors:
+      - {id: honor-deans-list, text: "Dean's List, 3 semesters"}
+    coursework:
+      - {id: course-ds, name: "Data Structures and Algorithms"}
+      - {id: course-db, name: "Database Systems"}
+      - {id: course-stats, name: "Probability and Statistics"}
+
+experience:
+  - id: exp-lab
+    org: Lakeview State University
+    title: Undergraduate Research Assistant, Transit Data Lab
+    start: 2025-09
+    end: present
+    bullets:
+      - id: exp-lab-b1
+        text: "Wrote Python scripts with pandas to clean 2 years of bus arrival records and flag late routes for the lab's weekly report"
+      - id: exp-lab-b2
+        text: "Built SQL queries in PostgreSQL to join ridership and schedule tables, cutting the lab's manual spreadsheet work"
+  - id: exp-tutor
+    org: Lakeview State University
+    title: Peer Tutor, Intro Programming
+    start: 2025-01
+    end: present
+    bullets:
+      - id: exp-tutor-b1
+        text: "Tutored 20+ students a term in Java, helping them debug assignments and explain their code"
+
+projects:
+  - id: proj-rooms
+    name: Study Room Finder
+    stack: [Python, Flask, SQLite, HTML]
+    bullets:
+      - id: proj-rooms-b1
+        text: "Built a Flask web app with a REST API that shows open campus study rooms, backed by a SQLite database"
+      - id: proj-rooms-b2
+        text: "Wrote pytest unit tests for the booking logic and ran them on every push with GitHub Actions"
+
+skills:
+  languages:
+    - {name: Python, evidenced_by: [exp-lab-b1, proj-rooms-b1]}
+    - {name: Java, evidenced_by: [exp-tutor-b1]}
+    - {name: SQL, evidenced_by: [exp-lab-b2]}
+    - {name: JavaScript, evidenced_by: []}
+  tools:
+    - {name: Git, evidenced_by: []}
+    - {name: Docker, evidenced_by: []}

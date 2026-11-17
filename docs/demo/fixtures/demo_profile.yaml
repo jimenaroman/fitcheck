@@ -1,0 +1,11 @@
+# FICTIONAL profile for the public demo (same format as profile.example.yaml).
+expected_graduation: "2028-05"
+
+work_authorization:
+  us_authorized: true
+  needs_sponsorship: false
+
+location_filter:
+  enabled: false
+  metros: [chicago]
+  remote_ok: true

@@ -1,0 +1,19 @@
+<!-- The app icon: dusk sky, sun, and the peak with its flag (the ridge from the mockup, full size).
+     Rendered once to public/icons/*.png with headless Chrome (re-render if this changes). The art stays inside the middle 80% so
+     Android's round "maskable" crop never cuts it. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9DB3CB"/>
+      <stop offset=".55" stop-color="#D5DCE1"/>
+      <stop offset="1" stop-color="#F0DEBF"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#sky)"/>
+  <circle cx="150" cy="215" r="42" fill="#E3A95F"/>
+  <path d="M0,420 C70,370 120,345 170,352 C210,358 240,378 280,398 L280,512 L0,512 Z" fill="#B4BECB"/>
+  <path d="M110,440 C170,395 220,330 262,290 L282,266 C296,255 312,255 324,266 C356,295 410,355 512,410 L512,512 L110,512 Z" fill="#5B6579"/>
+  <path d="M262,290 L282,266 C296,255 312,255 324,266 L338,280 C318,272 300,276 286,290 C276,284 268,286 262,290 Z" fill="#FFFFFF" opacity=".85"/>
+  <line x1="303" y1="262" x2="303" y2="176" stroke="#1F2735" stroke-width="7" stroke-linecap="round"/>
+  <path d="M306,178 C322,172 332,186 350,180 C345,192 345,200 350,212 C332,218 322,204 306,210 Z" fill="#E3A95F"/>
+</svg>
